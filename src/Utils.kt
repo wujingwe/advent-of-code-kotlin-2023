@@ -26,3 +26,18 @@ fun List<String>.to2DArray() = Array(size) {
 }
 
 fun Array<CharArray>.to2DSize() = size to get(0).size
+
+fun <R> List<String>.parts(map: (List<String>) -> R): List<R> = buildList {
+    var curr = ArrayList<String>()
+    for (s in this@parts) {
+        if (s == "") {
+            add(map(curr))
+            curr = ArrayList()
+            continue
+        }
+        curr.add(s)
+    }
+    if (curr.isNotEmpty()) {
+        add(map(curr))
+    }
+}
